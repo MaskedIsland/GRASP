@@ -111,7 +111,6 @@ class GRASP(nn.Module):
         # print("model_input_after_start_conv.shape:", x.shape)
         skip = 0
 
-        # calculate the current adaptive adj matrix once per iteration
         new_supports = None
         if self.gcn_bool and self.addaptadj and self.supports is not None:
             adp = F.softmax(F.relu(torch.mm(self.nodevec1, self.nodevec2)), dim=1)
@@ -128,8 +127,6 @@ class GRASP(nn.Module):
             gate = torch.sigmoid(gate)
             x = filter * gate
             # print("model_fliter*gate.shape:", x.shape)
-
-            # parametrized skip connection
 
             s = x
             s = self.skip_convs[i](s)
